@@ -14,7 +14,6 @@
       background-color: #a9cce8;
       display: flex;
       height: 100vh;
-      <div id="cat"></div>
     }
     .button {
       display: inline-block;
@@ -28,6 +27,23 @@
       margin-right: 1rem;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .sidebar-arrow {
+      position: absolute;
+      top: 50%;
+      right: -12px;
+      transform: translateY(-50%) rotate(0deg);
+      font-size: 1.5rem;
+      color: #666;
+      transition: transform 0.3s ease;
+      pointer-events: none;
+    }
+    .sidebar:hover .sidebar-arrow {
+      transform: translateY(-50%) rotate(180deg); /* rotate to point left */
+      color: #222;
+      opacity: 1;
+    }
+
 
     .button:hover {
       background-color: #4A5E77;
@@ -60,6 +76,12 @@
     }
 
     .sidebar {
+    <div class="sidebar">
+    <div class="sidebar-arrow">➤</div> <!-- 🔽 this is the arrow -->
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    </div>
       width: 60px; /* collapsed width */
       background-color: #bcdbf5;
       overflow: hidden;
@@ -151,6 +173,8 @@
   <a href="#contact">Contact</a>
 </div>
 
+<div id="cat"></div>
+
 <div class="main">
   <div class="photo-container">
     <img src="portimage.JPG" alt="Your Photo" />
@@ -212,6 +236,8 @@
 
     lastX = mouseX;
   });
+
+
 </script>
 </body>
 
