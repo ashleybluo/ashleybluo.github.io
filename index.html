@@ -11,11 +11,7 @@
       cursor: url('cursor1.png'), auto;
       margin: 0;
       font-family: sans-serif;
-      background-image: url('bluebackground.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      background-color: #a9cce8;
       display: flex;
       height: 100vh;
     }
@@ -26,12 +22,13 @@
 
     p {
       font-family: "Times New Roman", Times, serif;
+      font-size: 1.1rem;
       line-height: 1.6;
     }
 
     .sidebar {
       width: 60px; /* collapsed width */
-      background-color: #D8E6F2;
+      background-color: #bcdbf5;
       overflow: hidden;
       transition: width 0.3s ease;
       padding: 2rem 0.5rem;
@@ -148,6 +145,23 @@
   <section id="contact">
     <h2>Contact</h2>
     <p>Ways to get in touch: email, LinkedIn, etc.</p>
+    .button {
+    display: inline-block;
+    background-color: #577499;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: "Times New Roman", serif;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .button:hover {
+    background-color: #4A5E77; /* slightly darker blue */
+    box-shadow: 0 4px 12px #FF6A00; /* soft glow */
+    }
   </section>
 </div>
 
