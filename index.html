@@ -26,14 +26,41 @@
 
     p {
       font-family: "Times New Roman", Times, serif;
+      line-height: 1.6;
     }
 
     .sidebar {
-      width: 20%;
-      background-color: #f5f5f5;
-      padding: 2rem 1rem;
+      width: 60px; /* collapsed width */
+      background-color: #D8E6F2;
+      overflow: hidden;
+      transition: width 0.3s ease;
+      padding: 2rem 0.5rem;
       box-sizing: border-box;
+      white-space: nowrap;
+      position: relative;
     }
+
+    .sidebar:hover {
+      width: 200px; /* expanded width */
+      padding: 2rem 1rem;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #555;
+      text-decoration: none;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .sidebar:hover a {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
 
     .sidebar a {
       display: block;
