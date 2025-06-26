@@ -35,14 +35,16 @@
       transform: translateY(-50%) rotate(0deg);
       font-size: 1.5rem;
       color: #666;
-      transition: transform 0.3s ease;
+      transition: transform 0.5s ease, color 0.5s ease, opacity 0.5s ease;
       pointer-events: none;
+      opacity: 0.5; /* start semi-transparent */
     }
     .sidebar:hover .sidebar-arrow {
-      transform: translateY(-50%) rotate(180deg); /* rotate to point left */
+      transform: translateY(-50%) rotate(180deg);
       color: #222;
       opacity: 1;
     }
+
 
 
     .button:hover {
@@ -77,20 +79,16 @@
     }
 
     .sidebar {
-
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-    </div>
-      width: 60px; /* collapsed width */
+      width: 60px;
       background-color: #bcdbf5;
       overflow: hidden;
-      transition: width 0.3s ease;
+      transition: width 0.5s ease, padding 0.5s ease;
       padding: 2rem 0.5rem;
       box-sizing: border-box;
       white-space: nowrap;
       position: relative;
     }
+
 
     .sidebar:hover {
       width: 200px; /* expanded width */
@@ -105,7 +103,7 @@
       margin-bottom: 1.5rem;
       opacity: 0;
       transform: translateX(-10px);
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .sidebar:hover a {
