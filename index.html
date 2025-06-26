@@ -60,6 +60,7 @@
       background-repeat: no-repeat;
       pointer-events: none;
       transition: left 0.1s ease-out;
+      transform: translateX(-50%);
       z-index: 1000; /* makes sure it's visible above content */
     }
 
@@ -76,8 +77,7 @@
     }
 
     .sidebar {
-    <div class="sidebar">
-    <div class="sidebar-arrow">➤</div> <!-- 🔽 this is the arrow -->
+
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
@@ -168,6 +168,7 @@
 <body>
 
 <div class="sidebar">
+  <div class="sidebar-arrow">➤</div>
   <a href="#about">About</a>
   <a href="#projects">Projects</a>
   <a href="#contact">Contact</a>
@@ -209,36 +210,59 @@
   </section>
 </div>
 
-<script>
+<<script>
   const cat = document.getElementById('cat');
   let lastX = window.innerWidth / 2;
   let currentFrame = 1;
   const totalFrames = 15;
+  const catWidth = 120; // same as in CSS
+  let animationInterval;
 
   function updateFrame() {
     cat.style.backgroundImage = `url('cat-walk-right/cwr${currentFrame}.png')`;
     currentFrame = (currentFrame % totalFrames) + 1;
   }
 
-  // Cycle through cat frames every 100ms (10 fps)
-  setInterval(updateFrame, 100);
+  function startWalking() {
+    if (!animationInterval) {
+      animationInterval = setInterval(updateFrame, 100);
+    }
+  }
+
+  function stopWalking() {
+    clearInterval(animationInterval);
+    animationInterval = null;
+  }
 
   document.addEventListener('mousemove', (e) => {
     const mouseX = e.clientX;
+    const catX = cat.offsetLeft + catWidth / 2;
+    const distance = Math.abs(mouseX - catX);
+
+    // Move the cat horizontally
     cat.style.left = `${mouseX}px`;
 
     // Flip direction
     if (mouseX < lastX) {
-      cat.style.transform = "scaleX(-1)";
+      cat.style.transform = "translateX(-50%) scaleX(-1)";
     } else {
-      cat.style.transform = "scaleX(1)";
+      cat.style.transform = "translateX(-50%) scaleX(1)";
+    }
+
+    // If mouse is far, walk. If close, sit.
+    if (distance > 30) {
+      startWalking();
+    } else {
+      stopWalking();
     }
 
     lastX = mouseX;
   });
 
-
+  // Start walking on load in case mouse is far
+  startWalking();
 </script>
+
 </body>
 
 </body>
