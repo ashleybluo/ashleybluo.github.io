@@ -14,6 +14,7 @@
       background-color: #a9cce8;
       display: flex;
       height: 100vh;
+      <div id="cat"></div>
     }
     .button {
       display: inline-block;
@@ -31,6 +32,19 @@
     .button:hover {
       background-color: #4A5E77;
       box-shadow: 0 4px 12px #FF6A00;
+    }
+
+    #cat {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      width: 80px;
+      height: 80px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      transition: left 0.1s ease-out;
+      z-index: 1000; /* makes sure it's visible above content */
     }
 
     .
@@ -170,6 +184,36 @@
     </div>
   </section>
 </div>
+
+<script>
+  const cat = document.getElementById('cat');
+  let lastX = window.innerWidth / 2;
+  let currentFrame = 1;
+  const totalFrames = 15;
+
+  function updateFrame() {
+    cat.style.backgroundImage = `url('cat-walk-right/cwr${currentFrame}.png')`;
+    currentFrame = (currentFrame % totalFrames) + 1;
+  }
+
+  // Cycle through cat frames every 100ms (10 fps)
+  setInterval(updateFrame, 100);
+
+  document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX;
+    cat.style.left = `${mouseX}px`;
+
+    // Flip direction
+    if (mouseX < lastX) {
+      cat.style.transform = "scaleX(-1)";
+    } else {
+      cat.style.transform = "scaleX(1)";
+    }
+
+    lastX = mouseX;
+  });
+</script>
+</body>
 
 </body>
 </html>
