@@ -210,28 +210,47 @@
   </section>
 </div>
 
-<<script>
+<script>
   const cat = document.getElementById('cat');
   let lastX = window.innerWidth / 2;
   let currentFrame = 1;
   const totalFrames = 15;
-  const catWidth = 120; // same as in CSS
-  let animationInterval;
+  const catWidth = 120;
 
-  function updateFrame() {
+  let animationInterval = null;
+  let idleInterval = null;
+  let isIdle = false;
+  let idleFrame = 14;
+
+  function updateWalkingFrame() {
     cat.style.backgroundImage = `url('cat-walk-right/cwr${currentFrame}.png')`;
     currentFrame = (currentFrame % totalFrames) + 1;
   }
 
   function startWalking() {
     if (!animationInterval) {
-      animationInterval = setInterval(updateFrame, 100);
+      animationInterval = setInterval(updateWalkingFrame, 100);
     }
+    if (idleInterval) {
+      clearInterval(idleInterval);
+      idleInterval = null;
+    }
+    isIdle = false;
   }
 
-  function stopWalking() {
-    clearInterval(animationInterval);
-    animationInterval = null;
+  function startIdling() {
+    if (animationInterval) {
+      clearInterval(animationInterval);
+      animationInterval = null;
+    }
+
+    if (!idleInterval && !isIdle) {
+      isIdle = true;
+      idleInterval = setInterval(() => {
+        cat.style.backgroundImage = `url('cat-walk-right/cwr${idleFrame}.png')`;
+        idleFrame = idleFrame === 14 ? 15 : 14;
+      }, 600); // Blinks every 600ms
+    }
   }
 
   document.addEventListener('mousemove', (e) => {
@@ -239,28 +258,28 @@
     const catX = cat.offsetLeft + catWidth / 2;
     const distance = Math.abs(mouseX - catX);
 
-    // Move the cat horizontally
+    // Move the cat to follow the mouse
     cat.style.left = `${mouseX}px`;
 
-    // Flip direction
+    // Flip cat direction
     if (mouseX < lastX) {
       cat.style.transform = "translateX(-50%) scaleX(-1)";
     } else {
       cat.style.transform = "translateX(-50%) scaleX(1)";
     }
 
-    // If mouse is far, walk. If close, sit.
-    if (distance > 30) {
+    // Only walk if mouse is far from cat
+    if (distance > 100) {
       startWalking();
     } else {
-      stopWalking();
+      startIdling();
     }
 
     lastX = mouseX;
   });
 
-  // Start walking on load in case mouse is far
-  startWalking();
+  // Start idling on load
+  startIdling();
 </script>
 
 </body>
