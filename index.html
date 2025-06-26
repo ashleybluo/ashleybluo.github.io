@@ -17,11 +17,13 @@
     }
 
     .button {
-      background: linear-gradient(to right, #5d82a9, #46617d);
-      padding: 0.8rem 1.4rem;
-      border-radius: 999px;
-      font-weight: 500;
+      background-color: #e7c7a9;
+      box-shadow: none;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #FF6A00; /* darker background */
     }
 
     .sidebar-arrow {
@@ -212,15 +214,32 @@
 
 <script>
   const cat = document.getElementById('cat');
-  let lastX = window.innerWidth / 2;
+  let lastMouseX = window.innerWidth / 2;
+  let currentCatX = lastMouseX;
   let currentFrame = 1;
   const totalFrames = 15;
   const catWidth = 120;
 
   let animationInterval = null;
   let idleInterval = null;
-  let isIdle = false;
+  let isIdle = true;
   let idleFrame = 14;
+
+  // Move cat toward target X
+  function moveCat() {
+    const distance = lastMouseX - currentCatX;
+
+    if (Math.abs(distance) > 5) {
+      // Cat walks toward mouse
+      currentCatX += distance / 10;
+      cat.style.left = `${currentCatX}px`;
+      cat.style.transform = `translateX(-50%) scaleX(${distance < 0 ? -1 : 1})`;
+      startWalking();
+    } else {
+      // Cat is close enough, stop
+      stopWalking();
+    }
+  }
 
   function updateWalkingFrame() {
     cat.style.backgroundImage = `url('cat-walk-right/cwr${currentFrame}.png')`;
@@ -231,6 +250,7 @@
     if (!animationInterval) {
       animationInterval = setInterval(updateWalkingFrame, 100);
     }
+
     if (idleInterval) {
       clearInterval(idleInterval);
       idleInterval = null;
@@ -238,7 +258,7 @@
     isIdle = false;
   }
 
-  function startIdling() {
+  function stopWalking() {
     if (animationInterval) {
       clearInterval(animationInterval);
       animationInterval = null;
@@ -249,38 +269,22 @@
       idleInterval = setInterval(() => {
         cat.style.backgroundImage = `url('cat-walk-right/cwr${idleFrame}.png')`;
         idleFrame = idleFrame === 14 ? 15 : 14;
-      }, 600); // Blinks every 600ms
+      }, 600);
     }
   }
 
+  // Update target mouse position only on movement
   document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX;
-    const catX = cat.offsetLeft + catWidth / 2;
-    const distance = Math.abs(mouseX - catX);
-
-    // Move the cat to follow the mouse
-    cat.style.left = `${mouseX}px`;
-
-    // Flip cat direction
-    if (mouseX < lastX) {
-      cat.style.transform = "translateX(-50%) scaleX(-1)";
-    } else {
-      cat.style.transform = "translateX(-50%) scaleX(1)";
-    }
-
-    // Only walk if mouse is far from cat
-    if (distance > 100) {
-      startWalking();
-    } else {
-      startIdling();
-    }
-
-    lastX = mouseX;
+    lastMouseX = e.clientX;
   });
 
-  // Start idling on load
-  startIdling();
+  // Smooth movement loop
+  setInterval(moveCat, 30);
+
+  // Start idle on load
+  stopWalking();
 </script>
+
 
 </body>
 
