@@ -179,6 +179,50 @@
       transform: translateX(-50%);
       z-index: 1000;
     }
+
+
+    .lamp-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 40px;
+      height: 200px;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .lamp-base {
+      width: 10px;
+      height: 100px;
+      background-color: #444;
+      margin: 0 auto;
+    }
+
+    .lamp-bulb {
+      width: 40px;
+      height: 40px;
+      background-color: #442;
+      border-radius: 50%;
+      margin: -20px auto 0;
+      z-index: 2;
+      position: relative;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 0 transparent;
+    }
+
+    .lamp-light {
+      position: absolute;
+      top: -90px;
+      left: -65px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(255, 156, 80, 0.4) 0%, transparent 80%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
   </style>
 </head>
 <body>
@@ -227,6 +271,14 @@
     </div>
   </section>
 </div>
+
+<div class="lamp-container" onclick="toggleLamp()">
+  <div class="lamp-base"></div>
+  <div class="lamp-bulb" id="lamp-bulb"></div>
+  <div class="lamp-light" id="lamp-light"></div>
+  <audio id="lamp-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-light-switch-on-1121.mp3"></audio>
+</div>
+
 
 <script>
   const cat = document.getElementById('cat');
@@ -294,6 +346,29 @@
 
   setInterval(moveCat, 30);
   stopWalking();
+  // 💡 Lamp logic
+  let isOn = false;
+
+  function toggleLamp() {
+    const bulb = document.getElementById("lamp-bulb");
+    const glow = document.getElementById("lamp-light");
+    const sound = document.getElementById("lamp-sound");
+
+    sound.currentTime = 0;
+    sound.play();
+
+    if (isOn) {
+      bulb.style.backgroundColor = "#442";
+      bulb.style.boxShadow = "0 0 0 transparent";
+      glow.style.opacity = "0";
+    } else {
+      bulb.style.backgroundColor = "#ff9944";
+      bulb.style.boxShadow = "0 0 20px #ffb366";
+      glow.style.opacity = "1";
+    }
+
+    isOn = !isOn;
+  }
 </script>
 </body>
 </html>
