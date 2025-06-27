@@ -29,14 +29,13 @@
       letter-spacing: 0.5px;
       text-decoration: none;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .button:hover {
-      background-color: #4A5E77; /* darker on hover */
+      background-color: #FF6A00; /* darker on hover */
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(255, 106, 0, 0.4); /* glowing orange shadow */
     }
 
     .sidebar-arrow {
@@ -238,7 +237,7 @@
   let isIdle = true;
   let idleFrame = 14;
 
-  const walkSpeed = 5; // Constant number of pixels to move per frame
+  const walkSpeed = 3; // Constant number of pixels to move per frame
 
   function moveCat() {
     const distance = lastMouseX - currentCatX;
