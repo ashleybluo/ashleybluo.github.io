@@ -12,15 +12,15 @@
       cursor: url('cursor1.png'), auto;
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #D8E6F2;
+      background-color: #E8D4C0;
       display: flex;
       height: 100vh;
-      color: #4A5E77;
+      color: #259A5D;
     }
 
     .button {
       display: inline-block;
-      background-color: #4A5E77;
+      background-color: #259A5D;
       color: white;
       padding: 0.75rem 1.5rem;
       border: none;
@@ -35,15 +35,15 @@
     }
 
     .button:hover {
-      background-color: #FF6A00;
+      background-color: #D7A9B8;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 106, 0, 0.4);
+      box-shadow: 0 4px 12px rgba(215, 169, 184, 0.4);
     }
 
     .sidebar {
       position: fixed;
       width: 40px;
-      background-color: #4A5E77;
+      background-color: #D7A9B8;
       overflow: hidden;
       transition: width 0.5s ease, padding 0.5s ease;
       padding: 2rem 0.4rem;
@@ -61,7 +61,7 @@
     .sidebar a {
       display: block;
       margin-bottom: 2rem;
-      color: #FAF3E0;
+      color: white;
       text-decoration: none;
       font-size: 1.1rem;
       font-weight: 500;
@@ -83,20 +83,20 @@
       left: 100%;
       transform: translateY(-50%) rotate(0deg);
       font-size: 1.2rem;
-      color: #FAF3E0;
+      color: white;
       transition: transform 0.5s ease, color 0.5s ease;
       opacity: 0.6;
     }
 
     .sidebar:hover .sidebar-arrow {
       transform: translateY(-50%) rotate(180deg);
-      color: #FF6A00;
+      color: #259A5D;
       opacity: 1;
     }
 
     h1, h2, h3 {
       font-family: "Didot", "Bodoni MT", "Didot LT STD", Georgia, serif;
-      color: #4A5E77;
+      color: #259A5D;
     }
 
     p {
@@ -115,7 +115,7 @@
     }
 
     section {
-      background: #FAF3E0;
+      background: #fff;
       padding: 2rem;
       border-radius: 12px;
       margin-bottom: 2rem;
@@ -164,8 +164,6 @@
       transform: translateX(-50%);
       z-index: 1000;
     }
-
-
   </style>
 </head>
 <body>
@@ -226,7 +224,7 @@
   let isIdle = true;
   let idleFrame = 14;
 
-  const walkSpeed = 3; // Constant number of pixels to move per frame
+  const walkSpeed = 3;
 
   function moveCat() {
     const distance = lastMouseX - currentCatX;
@@ -277,14 +275,4 @@
     lastMouseX = e.clientX;
   });
 
-  setInterval(moveCat, 30); // controls how often the cat moves
-
-  // Sit/blink on load
-  stopWalking();
-</script>
-
-
-</body>
-
-</body>
-</html>
+  setInterval(moveCat,
