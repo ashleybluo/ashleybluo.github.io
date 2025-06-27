@@ -17,13 +17,26 @@
     }
 
     .button {
-      background-color: #e7c7a9;
-      box-shadow: none;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+      background-color: #577499; /* solid modern blue */
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 999px; /* pill shape */
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .button:hover {
-      background-color: #FF6A00; /* darker background */
+      background-color: #4A5E77; /* darker on hover */
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 106, 0, 0.4); /* glowing orange shadow */
     }
 
     .sidebar-arrow {
@@ -225,18 +238,17 @@
   let isIdle = true;
   let idleFrame = 14;
 
-  // Move cat toward target X
+  const walkSpeed = 5; // Constant number of pixels to move per frame
+
   function moveCat() {
     const distance = lastMouseX - currentCatX;
 
-    if (Math.abs(distance) > 5) {
-      // Cat walks toward mouse
-      currentCatX += distance / 10;
+    if (Math.abs(distance) > walkSpeed) {
+      currentCatX += distance > 0 ? walkSpeed : -walkSpeed;
       cat.style.left = `${currentCatX}px`;
       cat.style.transform = `translateX(-50%) scaleX(${distance < 0 ? -1 : 1})`;
       startWalking();
     } else {
-      // Cat is close enough, stop
       stopWalking();
     }
   }
@@ -273,15 +285,13 @@
     }
   }
 
-  // Update target mouse position only on movement
   document.addEventListener('mousemove', (e) => {
     lastMouseX = e.clientX;
   });
 
-  // Smooth movement loop
-  setInterval(moveCat, 30);
+  setInterval(moveCat, 30); // controls how often the cat moves
 
-  // Start idle on load
+  // Sit/blink on load
   stopWalking();
 </script>
 
