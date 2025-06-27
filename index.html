@@ -11,110 +11,60 @@
     body {
       cursor: url('cursor1.png'), auto;
       margin: 0;
-      font-family: sans-serif;
-      background-color: #a9cce8;
+      font-family: 'Inter', sans-serif;
+      background-color: #D8E6F2;
       display: flex;
       height: 100vh;
+      color: #4A5E77;
     }
 
     .button {
       display: inline-block;
-      background-color: #cbb09a; /* solid modern blue */
+      background-color: #4A5E77;
       color: white;
       padding: 0.75rem 1.5rem;
       border: none;
-      border-radius: 999px; /* pill shape */
+      border-radius: 999px;
       font-family: 'Inter', sans-serif;
       font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0.5px;
       text-decoration: none;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     }
 
     .button:hover {
-      background-color: #FF6A00; /* darker on hover */
+      background-color: #FF6A00;
       transform: translateY(-2px);
-    }
-
-    .sidebar-arrow {
-      position: absolute;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      top: 50%;
-      left: 100%;
-      transform: translateY(-50%) rotate(0deg);
-      font-size: 1.2rem;
-      color: #888;
-      transition: transform 0.5s ease, color 0.5s ease;
-      opacity: 0.6;
-    }
-
-    .sidebar:hover .sidebar-arrow {
-      transform: translateY(-50%) rotate(180deg);
-      color: #333;
-      opacity: 1;
-    }
-
-
-
-    .button:hover {
-      background-color: #4A5E77;
-      box-shadow: 0 4px 12px #FF6A00;
-    }
-
-    #cat {
-      position: fixed;
-      bottom: 40px;
-      left: 50%;
-      width: 200px;
-      height: 200px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      pointer-events: none;
-      transition: left 0.1s ease-out;
-      transform: translateX(-50%);
-      z-index: 1000; /* makes sure it's visible above content */
-    }
-
-    .
-
-    h1, h2, h3 {
-      font-family: "Didot", "Bodoni MT", "Didot LT STD", "Hoefler Text", Georgia, serif;
-    }
-
-    p {
-      font-family: 'Georgia', serif;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: #333;
+      box-shadow: 0 4px 12px rgba(255, 106, 0, 0.4);
     }
 
     .sidebar {
-      position:fixed;
+      position: fixed;
       width: 40px;
-      background-color: #bcdbf5;
+      background-color: #4A5E77;
       overflow: hidden;
       transition: width 0.5s ease, padding 0.5s ease;
       padding: 2rem 0.4rem;
       box-sizing: border-box;
       white-space: nowrap;
-      position: relative;
+      height: 100vh;
+      z-index: 10;
     }
 
-
     .sidebar:hover {
-      width: 200px; /* expanded width */
+      width: 200px;
       padding: 2rem 1rem;
     }
 
     .sidebar a {
       display: block;
-      color: #555;
+      margin-bottom: 2rem;
+      color: #FAF3E0;
       text-decoration: none;
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
       opacity: 0;
       transform: translateX(-10px);
       transition: opacity 0.3s ease, transform 0.3s ease;
@@ -125,23 +75,52 @@
       transform: translateX(0);
     }
 
+    .sidebar-arrow {
+      position: absolute;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%) rotate(0deg);
+      font-size: 1.2rem;
+      color: #FAF3E0;
+      transition: transform 0.5s ease, color 0.5s ease;
+      opacity: 0.6;
+    }
 
-    .sidebar a {
-      display: block;
-      margin-bottom: 2rem;
-      color: #444;
-      text-decoration: none;
-      font-size: 1.1rem;
+    .sidebar:hover .sidebar-arrow {
+      transform: translateY(-50%) rotate(180deg);
+      color: #FF6A00;
+      opacity: 1;
+    }
+
+    h1, h2, h3 {
+      font-family: "Didot", "Bodoni MT", "Didot LT STD", Georgia, serif;
+      color: #4A5E77;
+    }
+
+    p {
+      font-family: 'Georgia', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #333;
     }
 
     .main {
       width: 100%;
       max-width: 900px;
-      background-color: #a9cce8;
+      background-color: transparent;
       margin: 0 auto;
       padding: 2rem;
     }
 
+    section {
+      background: #FAF3E0;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
 
     .photo-container {
       position: relative;
@@ -172,13 +151,20 @@
       overflow: hidden;
     }
 
-    section {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    #cat {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      transition: left 0.1s ease-out;
+      transform: translateX(-50%);
+      z-index: 1000;
     }
+
 
   </style>
 </head>
