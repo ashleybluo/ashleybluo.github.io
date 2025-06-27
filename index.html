@@ -292,6 +292,7 @@
   <div class="lamp-base"></div>
   <div class="lamp-bulb" id="lamp-bulb"></div>
   <div class="lamp-light" id="lamp-light"></div>
+  <div class="lamp-label" id="lamp-label">click me!</div>
   <audio id="lamp-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-light-switch-on-1121.mp3"></audio>
 </div>
 
@@ -377,7 +378,8 @@
 
     if (isOn) {
       // turning off
-      overlay.style.opacity = "0.9";
+
+      overlay.style.opacity = "0.8";
     } else {
       // turning on
       overlay.style.opacity = "0";
