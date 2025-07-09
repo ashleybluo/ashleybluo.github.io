@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seashell Summer Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #fefaf6;
+      color: #1f3d73;
+    }
+    header {
+      background: url('https://via.placeholder.com/1600x300') center/cover no-repeat;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .hero button {
+      padding: 10px 20px;
+      background-color: #1f3d73;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .featured-img {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+    }
+    .featured-img img {
+      max-width: 90%;
+      border-radius: 10px;
+    }
+    .bestsellers {
+      padding: 40px 20px;
+      background-color: #e4e9f1;
+    }
+    .bestsellers h2 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    .products {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .product {
+      width: 250px;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product h3 {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+    .product p {
+      font-size: 14px;
+    }
+    .btn-view-all {
+      display: block;
+      margin: 30px auto 0;
+      padding: 10px 20px;
+      background-color: #1f3d73;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .about {
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+    }
+    .about-text {
+      max-width: 400px;
+    }
+    .about h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .about p {
+      font-size: 16px;
+    }
+    .about img {
+      max-width: 300px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://via.placeholder.com/100x100" alt="Logo">
+    <nav>
+      <a href="#">О нас</a>
+      <a href="#">Доставка и оплата</a>
+      <a href="#">Контакты</a>
+      <a href="#">В избранное</a>
+      <a href="#">Вход</a>
+      <a href="#">Личный кабинет</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>DISCOVER OUR NEW<br>SUMMER COLLECTION 2023</h1>
+    <p>Подберем образы для каждой минуты вашего лета</p>
+    <button>ПЕРЕЙТИ В КАТАЛОГ</button>
+  </section>
+
+  <div class="featured-img">
+    <img src="https://via.placeholder.com/800x300" alt="Two women in swimsuits holding hands by the sea">
+  </div>
+
+  <section class="bestsellers">
+    <h2>BESTSELLERS</h2>
+    <div class="products">
+      <div class="product">
+        <img src="https://via.placeholder.com/250x250" alt="Luna swimsuit">
+        <h3>LUNA</h3>
+        <p>Верх купальника<br>2 900 ₽</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/250x250" alt="Marta cover-up">
+        <h3>MARTA</h3>
+        <p>Пляжное полотенце бежевого цвета<br>7 500 ₽</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/250x250" alt="Sun bikini">
+        <h3>SUN</h3>
+        <p>Раздельный купальник в сеточку<br>6 900 ₽</p>
+      </div>
+    </div>
+    <button class="btn-view-all">СМОТРЕТЬ ВСЕ</button>
+  </section>
+
+  <section class="about">
+    <div class="about-text">
+      <h2>SEASHELL</h2>
+      <p>Российский бренд купальников и одежды для пляжа. Название отсылает к находкам на берегу. Мягкие формы, теплые цвета, свобода. Seashell — это идеальные моменты лета: утро на пляже, розовый вечер, запах кокоса и теплый ветер. Это про любовь, розовый песок и короткое счастье возвращаться снова и снова.</p>
+    </div>
+    <img src="https://via.placeholder.com/300x300" alt="Seashell on stomach">
+  </section>
+</body>
+</html>
