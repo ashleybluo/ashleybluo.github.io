@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0ff0f1d3-72f9-4052-a8a5-6508de538f2a" name="Changes" comment="Getting rid of scss files">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ashleybluo.github.io.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/about.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aboutme.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bluebackground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/breakpoints.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/browser.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cat-walk-right/cwr9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/contact.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cursor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cursor1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fontawesome-all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/overlay.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pflio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pic01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pic02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pic03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/portimage.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2z3hZ6FTFU3L12VPRMs2zjwG1dk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0ff0f1d3-72f9-4052-a8a5-6508de538f2a" name="Changes" comment="" />
+      <created>1750965717503</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750965717503</updated>
+      <workItem from="1750965721813" duration="11768000" />
+    </task>
+    <task id="LOCAL-00001" summary="Getting rid of scss files">
+      <created>1750965954610</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750965954610</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Getting rid of scss files">
+      <created>1750966420556</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750966420556</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Getting rid of scss files">
+      <created>1750966443134</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1750966443134</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Getting rid of scss files">
+      <created>1750966747453</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750966747453</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Getting rid of scss files">
+      <created>1750966767414</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1750966767414</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Getting rid of scss files">
+      <created>1750967333752</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1750967333752</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Getting rid of scss files">
+      <created>1750967440737</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1750967440737</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Getting rid of scss files">
+      <created>1750967641362</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1750967641362</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Getting rid of scss files">
+      <created>1750968057813</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1750968057813</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Getting rid of scss files">
+      <created>1750968633479</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750968633479</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Getting rid of scss files">
+      <created>1750969300279</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1750969300279</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Getting rid of scss files">
+      <created>1750969616954</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1750969616954</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Getting rid of scss files">
+      <created>1750980928273</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1750980928274</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Getting rid of scss files">
+      <created>1750981375003</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1750981375003</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Getting rid of scss files">
+      <created>1750981631215</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1750981631215</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Getting rid of scss files">
+      <created>1750981886151</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1750981886151</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Getting rid of scss files">
+      <created>1750982114253</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1750982114253</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Getting rid of scss files">
+      <created>1750982318092</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1750982318092</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Getting rid of scss files">
+      <created>1750982859126</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1750982859126</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Getting rid of scss files">
+      <created>1750983408946</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1750983408946</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Getting rid of scss files">
+      <created>1750983663842</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1750983663842</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Getting rid of scss files">
+      <created>1750983923020</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1750983923020</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Getting rid of scss files">
+      <created>1750984382395</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1750984382395</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Getting rid of scss files">
+      <created>1750984796370</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1750984796370</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Getting rid of scss files">
+      <created>1750984999414</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1750984999414</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Getting rid of scss files">
+      <created>1750985665404</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1750985665404</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Getting rid of scss files">
+      <created>1750986447626</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1750986447626</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Getting rid of scss files">
+      <created>1751038202402</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1751038202402</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Getting rid of scss files">
+      <created>1751038519284</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1751038519284</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Getting rid of scss files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Getting rid of scss files" />
+  </component>
+</project>
