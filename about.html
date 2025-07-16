@@ -104,6 +104,57 @@
       margin: 20px 0;
       color: #a12323;
     }
+
+    .carousel-container {
+  position: relative;
+  max-width: 700px;
+  margin: 60px auto;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-image.active {
+  display: block;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #a12323;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.carousel-btn:hover {
+  background-color: #cf2727;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
   </style>
 </head>
 <body>
@@ -135,6 +186,17 @@
       Even in the presence of fear and the daunting possibility of failure, I have come to derive my joy from the journey.
     As corny as this all sounds, that is to say: living is so lovely and I carry this outlook with me wherever I go. </p>
   </div>
+
+  <div class="carousel-container">
+  <div class="carousel">
+    <img src="https://via.placeholder.com/600x400?text=Photo+1" class="carousel-image active" alt="Photo 1">
+    <img src="https://via.placeholder.com/600x400?text=Photo+2" class="carousel-image" alt="Photo 2">
+    <img src="https://via.placeholder.com/600x400?text=Photo+3" class="carousel-image" alt="Photo 3">
+  </div>
+  <button class="carousel-btn prev" onclick="moveSlide(-1)">❮</button>
+  <button class="carousel-btn next" onclick="moveSlide(1)">❯</button>
+</div>
+
 
 </body>
 </html>
