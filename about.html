@@ -120,10 +120,6 @@
   overflow: hidden;
 }
 
-.carousel-slide.active {
-  display: block;
-}
-
 .carousel-caption {
   font-size: 14px;
   color: #4b4b4b;
@@ -154,11 +150,6 @@
   width: 50%;
   height:400px; 
   object-fit: cover; /* keeps aspect ratio, may crop */
-}
-
-
-.carousel-image.active {
-  display: block;
 }
 
 .carousel-btn {
@@ -237,9 +228,7 @@
   
  <div class="carousel-container">
    <div class="carousel-track-wrapper">
-     <div class ="carousel-track">
-  <div class="carousel">
-    
+     <div class ="carousel-track">    
     <div class="carousel-slide active">
       <img src="conchwatercolor.JPG" class="carousel-image" alt="watercolor">
       <p class="carousel-caption">Watercolor sketch of a conch shell while my family was at the beach. (very fitting)</p>
@@ -256,8 +245,6 @@
       <p class="carousel-caption">Drew friends + strangers on the campus Main Green during final's week! <br>
       Lots of smiles and conversations with people I hadn't really gotten to chat with yet during the year.</p>
     </div>
-
-  </div>
      </div>
    </div>
 
@@ -289,23 +276,25 @@
   
 <script>
   let slideIndex = 0;
-  const slides = document.querySelectorAll(".carousel-slide");
-
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.remove("active");
-  });
-  slides[index].classList.add("active");
-}
+  const track = document.querySelector('.carousel-track');
+  const slides = document.querySelectorAll('.carousel-slide');
 
   function moveSlide(direction) {
     slideIndex = (slideIndex + direction + slides.length) % slides.length;
-    showSlide(slideIndex);
+    const slideWidth = slides[0].offsetWidth;
+    track.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
   }
 
-  // Initialize first slide
-  showSlide(slideIndex);
+  // Adjust on resize to keep alignment
+  window.addEventListener('resize', () => {
+    const slideWidth = slides[0].offsetWidth;
+    track.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+  });
+
+  // Set initial position
+  moveSlide(0);
 </script>
+
 
 </body>
 </html>
