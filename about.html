@@ -108,12 +108,15 @@
 
     .carousel-container {
   position: relative;
+  width: 100%;
   max-width: 700px;
   margin: 60px auto;
   background-color: #fff;
   border: 2px solid #ddd;
   box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
+
 
 .carousel {
   position: relative;
@@ -130,27 +133,30 @@
 
 .carousel-track-wrapper {
   overflow: hidden;
-  position: relative;
   width: 100%;
 }
 
 .carousel-track {
   display: flex;
   transition: transform 0.6s ease;
-  width: 300%; /* 100% x number of slides */
+  width: 100%;
 }
+
 
 .carousel-slide {
   width: 100%;
   flex-shrink: 0;
   text-align: center;
+  box-sizing: border-box;
+  padding: 0 0 20px;
 }
 
 .carousel-image {
-  width: 50%;
-  height:400px; 
-  object-fit: cover; /* keeps aspect ratio, may crop */
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
 }
+
 
 .carousel-btn {
   position: absolute;
@@ -278,22 +284,22 @@
   let slideIndex = 0;
   const track = document.querySelector('.carousel-track');
   const slides = document.querySelectorAll('.carousel-slide');
+  const container = document.querySelector('.carousel-container');
 
   function moveSlide(direction) {
     slideIndex = (slideIndex + direction + slides.length) % slides.length;
-    const slideWidth = slides[0].offsetWidth;
+    const slideWidth = container.offsetWidth;
     track.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
   }
 
-  // Adjust on resize to keep alignment
   window.addEventListener('resize', () => {
-    const slideWidth = slides[0].offsetWidth;
+    const slideWidth = container.offsetWidth;
     track.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
   });
 
-  // Set initial position
   moveSlide(0);
 </script>
+
 
 
 </body>
