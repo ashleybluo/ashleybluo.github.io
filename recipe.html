@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Recipe Book</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#fbfbf7;
+    --ink:#2c2a28;
+    --accent:#d2c7b9;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:#eee; color:var(--ink);
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+
+  /* ========== Shell ========== */
+  .frame{
+    height:100%;
+    display:grid;
+    place-items:center;
+    padding:16px;
+  }
+  .book{
+    width:min(1100px, 96vw);
+    height:min(760px, 88vh);
+    background:#ddd;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 30px 70px rgba(0,0,0,.25);
+    position:relative;
+  }
+
+  /* Horizontal swiping area */
+  .reel{
+    display:flex;
+    height:100%;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .reel::-webkit-scrollbar{height:10px}
+  .reel::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25); border-radius:999px}
+
+  /* Each SPREAD (two pages) */
+  .spread{
+    flex:0 0 100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    scroll-snap-align:center;
+    background:
+      radial-gradient(120% 100% at 50% 0%, rgba(0,0,0,.12), transparent 50%),
+      linear-gradient(to right, rgba(0,0,0,.08), rgba(255,255,255,.15) 24%, rgba(255,255,255,.15) 76%, rgba(0,0,0,.08));
+  }
+
+  .page{
+    background:var(--paper);
+    padding:26px 30px;
+    position:relative;
+  }
+  .left{ border-right:1px solid rgba(0,0,0,.08) }
+  .right{ border-left:1px solid rgba(0,0,0,.08) }
+
+  /* Page chrome */
+  .folio{
+    position:absolute; bottom:14px; left:30px; font-size:12px; opacity:.6;
+  }
+  .folio.right{ left:auto; right:30px }
+
+  /* Type */
+  h1,h2{margin:0}
+  h1{
+    font-family:"Playfair Display", serif; font-weight:700;
+    font-size:clamp(22px, 2.6vw, 34px);
+    line-height:1.1; margin-bottom:8px;
+  }
+  .byline{opacity:.7; font-size:14px; margin-bottom:14px}
+  .hand{ font-family:"Playfair Display", serif; font-style:italic; }
+
+  .grid{
+    display:grid; gap:14px;
+    grid-template-columns:repeat(2, 1fr);
+  }
+  .grid img{ width:100%; height:160px; object-fit:cover; border-radius:6px }
+
+  .bigphoto{
+    width:100%; height:420px; object-fit:cover; border-radius:8px;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+  }
+
+  .rule{height:1px;background:linear-gradient(to right, transparent, rgba(0,0,0,.2), transparent); margin:14px 0}
+
+  ul,ol{margin:0; padding-left:18px}
+  li{margin:.35em 0}
+
+  /* ========== Controls ========== */
+  .arrow{
+    position:absolute; inset:0; pointer-events:none;
+  }
+  .btn{
+    pointer-events:auto;
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%;
+    border:1px solid rgba(0,0,0,.15);
+    background:rgba(255,255,255,.6); backdrop-filter: blur(4px);
+    display:grid; place-items:center; cursor:pointer; user-select:none;
+  }
+  .btn:hover{ background:white }
+  .btn.prev{ left:10px }
+  .btn.next{ right:10px }
+
+  /* Dots */
+  .dots{
+    position:absolute; bottom:10px; left:0; right:0;
+    display:flex; justify-content:center; gap:8px;
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(0,0,0,.25); cursor:pointer;
+  }
+  .dot.active{ background:#000 }
+
+  /* Mobile stacking if needed */
+  @media (max-width:800px){
+    .spread{ grid-template-columns:1fr } /* one page at a time on mobile */
+    .left{ border-right:none; border-bottom:1px solid rgba(0,0,0,.08) }
+    .right{ border-left:none }
+    .bigphoto{ height:300px }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <div class="book" id="book">
+    <div class="reel" id="reel" tabindex="0" aria-label="Recipe book pages">
+
+      <!-- ====== SPREAD 1 ====== -->
+      <section class="spread" aria-label="Grandma's Homemade Pie">
+        <!-- Left page: text + small images -->
+        <article class="page left">
+          <h1>Grandma’s Homemade Pie <span class="hand">(Apple)</span></h1>
+          <div class="byline">Recipe by <strong>Nicholas Morgenstern</strong></div>
+
+          <div class="rule"></div>
+
+          <h2>Ingredients</h2>
+          <ul>
+            <li>2 cups all-purpose flour</li>
+            <li>1 tsp salt · 1 tbsp sugar</li>
+            <li>1 cup cold butter (cubed)</li>
+            <li>5–7 tbsp ice water</li>
+            <li>6 cups sliced apples</li>
+            <li>¾ cup sugar · 2 tsp cinnamon</li>
+          </ul>
+
+          <div class="rule"></div>
+
+          <h2>Notes <span class="hand">by me</span></h2>
+          <div class="grid">
+            <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?q=80&w=800&auto=format&fit=crop" alt="">
+            <img src="https://images.unsplash.com/photo-1514511541190-9d0b7edd6d0b?q=80&w=800&auto=format&fit=crop" alt="">
+            <img src="https://images.unsplash.com/photo-1478145046317-39f10e56b5e9?q=80&w=800&auto=format&fit=crop" alt="">
+            <img src="https://images.unsplash.com/photo-1453831362806-3d5577f014a4?q=80&w=800&auto=format&fit=crop" alt="">
+          </div>
+
+          <div class="folio">Photos by <em>Eva Chaston</em></div>
+        </article>
+
+        <!-- Right page: hero photo + steps -->
+        <article class="page right">
+          <img class="bigphoto" src="https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=1200&auto=format&fit=crop" alt="Slice of apple pie with ice cream">
+
+          <div class="rule" style="margin-top:16px"></div>
+
+          <h2>Method</h2>
+          <ol>
+            <li>Mix flour, salt, and sugar. Cut in butter until pea-sized.</li>
+            <li>Add ice water just until dough holds together. Chill 30 min.</li>
+            <li>Roll out, line pan, fill with apples + cinnamon sugar.</li>
+            <li>Cover with lattice, brush with egg, sprinkle sugar.</li>
+            <li>Bake at 375°F (190°C) for 45–55 min. Cool 2 hrs. Serve warm.</li>
+          </ol>
+
+          <div class="folio right">Issue 01 · Page 2</div>
+        </article>
+      </section>
+
+      <!-- ====== SPREAD 2 (example) ====== -->
+      <section class="spread" aria-label="Blueberry Scones">
+        <article class="page left">
+          <h1>Blueberry Scones</h1>
+          <div class="byline">From the kitchen of <strong>Ash</strong></div>
+          <div class="rule"></div>
+          <h2>Ingredients</h2>
+          <ul>
+            <li>2 cups flour · 2 tsp baking powder</li>
+            <li>½ tsp baking soda · ½ tsp salt</li>
+            <li>⅓ cup sugar · zest of 1 lemon</li>
+            <li>½ cup cold butter · ¾ cup buttermilk</li>
+            <li>1 cup blueberries</li>
+          </ul>
+          <div class="folio">Tip: freeze berries so they don’t burst.</div>
+        </article>
+
+        <article class="page right">
+          <img class="bigphoto" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=1200&auto=format&fit=crop" alt="Blueberry scones on tray">
+          <div class="rule" style="margin-top:16px"></div>
+          <h2>Method</h2>
+          <ol>
+            <li>Whisk dry ingredients; rub in butter.</li>
+            <li>Stir in buttermilk, then fold berries. Pat to disk.</li>
+            <li>Cut into 8 wedges, brush cream, sprinkle sugar.</li>
+            <li>Bake 400°F (205°C) for 18–22 min. Cool slightly, devour.</li>
+          </ol>
+          <div class="folio right">Issue 01 · Page 4</div>
+        </article>
+      </section>
+
+      <!-- Add more .spread blocks here -->
+    </div>
+
+    <!-- Controls -->
+    <div class="arrow" aria-hidden="true">
+      <button class="btn prev" id="prev" aria-label="Previous spread">‹</button>
+      <button class="btn next" id="next" aria-label="Next spread">›</button>
+    </div>
+
+    <div class="dots" id="dots" aria-label="Page navigation"></div>
+  </div>
+</div>
+
+<script>
+  // Basic carousel controls for the scroll-snap reel
+  const reel = document.getElementById('reel');
+  const spreads = Array.from(reel.children);
+  const dotsWrap = document.getElementById('dots');
+
+  // Build dots
+  spreads.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='dot' + (i===0?' active':'');
+    d.setAttribute('aria-label','Go to spread ' + (i+1));
+    d.addEventListener('click', ()=> goto(i));
+    dotsWrap.appendChild(d);
+  });
+
+  let index = 0;
+  const dots = Array.from(dotsWrap.children);
+
+  function goto(i){
+    index = Math.max(0, Math.min(spreads.length-1, i));
+    reel.scrollTo({left: index * reel.clientWidth, behavior:'smooth'});
+    dots.forEach((dot,di)=> dot.classList.toggle('active', di===index));
+  }
+
+  // Prev/Next buttons
+  document.getElementById('prev').onclick = ()=> goto(index-1);
+  document.getElementById('next').onclick = ()=> goto(index+1);
+
+  // Update active dot while swiping
+  let ticking=false;
+  reel.addEventListener('scroll', ()=>{
+    if(!ticking){
+      window.requestAnimationFrame(()=>{
+        const i = Math.round(reel.scrollLeft / reel.clientWidth);
+        if(i!==index){ index=i; dots.forEach((d,di)=>d.classList.toggle('active', di===index)); }
+        ticking=false;
+      });
+      ticking=true;
+    }
+  });
+
+  // Keyboard arrows
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowRight') goto(index+1);
+    if(e.key==='ArrowLeft') goto(index-1);
+  });
+
+  // Resize safety: keep to correct page
+  window.addEventListener('resize', ()=> goto(index));
+</script>
+</body>
+</html>
