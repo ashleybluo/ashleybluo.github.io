@@ -27,35 +27,43 @@
   }
 
   /* Polaroid-style card (flat, bigger) */
-  .card{
-    position:relative;
-    cursor:pointer;
-    background:#fff;
-    border-radius:8px;
-    box-shadow:0 18px 24px -14px rgba(0,0,0,.35), 0 3px 10px rgba(0,0,0,.12);
-    transition:transform .15s, box-shadow .15s;
-    padding:0;
-  }
-  .card:hover{ transform:translateY(-2px); box-shadow:0 26px 36px -16px rgba(0,0,0,.45), 0 6px 14px rgba(0,0,0,.18) }
+  /* Polaroid-style card (flat, bigger, fixed height for alignment) */
+.card{
+  position:relative;
+  cursor:pointer;
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 18px 24px -14px rgba(0,0,0,.35), 0 3px 10px rgba(0,0,0,.12);
+  transition:transform .15s, box-shadow .15s;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height:420px; /* fixed card height so rows align */
+}
 
-  /* photo with polaroid margins (bigger bottom) */
-  .thumb{
-    display:block;
-    width:100%;
-    aspect-ratio:3/4;
-    object-fit:cover;
-    margin:14px 14px 60px;   /* big bottom for caption area */
-    border-radius:3px;
-    background:#ddd;
-  }
+/* image area — fixed height, centered, keeps proportions */
+.thumb{
+  flex:0 0 auto;
+  width:calc(100% - 28px); /* match margin spacing */
+  height:300px;            /* consistent image frame */
+  object-fit:contain;      /* show full image, keep proportions */
+  margin:14px 14px 20px;
+  border-radius:3px;
+  background:#ddd;
+}
 
-  /* caption sits in the big bottom margin */
-  .meta{
-    position:absolute;
-    left:16px; right:16px; bottom:14px;
-    display:flex; justify-content:space-between; align-items:center; gap:10px;
-    font-size:.95rem; color:#333;
-  }
+/* caption area stays at bottom */
+.meta{
+  margin-top:auto;
+  padding:0 16px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  font-size:.95rem; 
+  color:#333;
+}
   .num{ font-family:"Playfair Display", serif; font-weight:700; font-size:1rem; letter-spacing:.02em }
   .title{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
 
