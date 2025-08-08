@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Project Wall — Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#efe9e4; --wall:#d9d4ce; --wood:#b88854; --ink:#2b2116; --paper:#fffdf8;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .wrap{
+    max-width:1100px; margin:4rem auto; padding:2rem; position:relative;
+    background:linear-gradient(#fff, #fff) padding-box, radial-gradient(120% 140% at 10% 0%, #fff6, #0000) border-box;
+    border-radius:28px; border:8px solid #fff; box-shadow:0 30px 60px rgba(0,0,0,.25);
+  }
+
+  /* concrete wall-ish background inside */
+  .surface{
+    background:linear-gradient(#0001,#0000), repeating-linear-gradient(0deg, #00000005 0 2px,#0000 2px 6px),
+               radial-gradient(900px 380px at 50% 0%, #eee, #e2ded7 70%);
+    border-radius:22px; padding:28px;
+    position:relative; overflow:hidden;
+  }
+
+  /* “wood rails” */
+  .rail{ position:absolute; left:28px; right:28px; height:14px; background:linear-gradient(#c7955d,#a4723d);
+         box-shadow: inset 0 2px 0 #e9caa3, 0 6px 10px rgba(0,0,0,.25); border-radius:8px; }
+  .rail.r1{ top:92px } .rail.r2{ top:292px } .rail.r3{ top:492px } .rail.r4{ top:692px }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap:26px;
+  }
+
+  .card{
+    background:var(--paper); border-radius:8px; padding:14px 12px 12px;
+    box-shadow:0 18px 24px -12px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.15);
+    transform:translateY(0); transition:transform .15s ease, box-shadow .15s ease;
+    position:relative; cursor:pointer;
+  }
+  .card:hover{ transform:translateY(-2px); box-shadow:0 26px 34px -16px rgba(0,0,0,.5), 0 4px 10px rgba(0,0,0,.2) }
+
+  /* little binder ring / tape illusion */
+  .ring{
+    width:26px; height:26px; border:3px solid #6f6a66; border-radius:50%;
+    position:absolute; left:50%; top:-13px; transform:translateX(-50%); background:#e9e6e2;
+    box-shadow: inset 0 2px 0 #fff, 0 2px 4px rgba(0,0,0,.25);
+  }
+
+  .thumb{
+    width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:4px; background:#ddd;
+  }
+  .meta{
+    display:flex; justify-content:space-between; align-items:center; margin-top:8px; gap:8px;
+    font-size:.86rem;
+  }
+  .num{ font-family:"Playfair Display", serif; font-weight:700; font-size:1rem; letter-spacing:.02em }
+  .title{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+
+  /* modal */
+  .modal{ position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; align-items:center; justify-content:center; padding:24px; z-index:50 }
+  .modal.open{ display:flex }
+  .sheet{
+    width:min(980px, 95vw); background:#fff; color:#222; border-radius:18px; overflow:hidden;
+    box-shadow:0 40px 80px rgba(0,0,0,.5);
+    display:grid; grid-template-columns:1.2fr 1fr;
+  }
+  .sheet img{ width:100%; height:100%; object-fit:contain; background:#f5f5f5 }
+  .info{ padding:20px 22px 22px; overflow:auto; }
+  .info h2{ margin:.2rem 0 .6rem; font:700 1.4rem/1.2 "Playfair Display", serif }
+  .info .small{ color:#666; font-size:.9rem; margin-bottom:.8rem }
+  .info p{ margin:.6rem 0 0; line-height:1.5; }
+  .close{
+    position:absolute; top:14px; right:16px; background:#000; color:#fff; border:none; border-radius:999px; width:36px; height:36px; cursor:pointer;
+    font-size:20px; display:grid; place-items:center;
+  }
+  .nav{ position:absolute; inset:0; pointer-events:none }
+  .nav button{
+    pointer-events:auto; position:absolute; top:50%; transform:translateY(-50%);
+    width:48px; height:48px; border:none; border-radius:999px; background:#000; color:#fff; font-size:22px; cursor:pointer; opacity:.85;
+  }
+  .nav .prev{ left:12px } .nav .next{ right:12px }
+  @media (max-width: 880px){ .sheet{ grid-template-columns:1fr } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="surface">
+      <!-- decorative rails -->
+      <div class="rail r1"></div><div class="rail r2"></div><div class="rail r3"></div><div class="rail r4"></div>
+
+      <div class="grid" id="grid">
+        <!-- CARD TEMPLATE: duplicate and replace src/title/fields -->
+        <figure class="card" data-title="Tea Study" data-year="2024" data-medium="Watercolor on cold press" data-size="5 x 7 in" data-desc="Loose wash study exploring steam and ceramic shine." data-src="images/tea.jpg">
+          <span class="ring"></span>
+          <img class="thumb" src="images/tea.jpg" alt="Tea Study">
+          <figcaption class="meta"><span class="title">Tea Study</span><span class="num">001</span></figcaption>
+        </figure>
+
+        <figure class="card" data-title="City Bike" data-year="2023" data-medium="Ink & wash" data-size="6 x 8 in" data-desc="Quick linework with limited palette." data-src="images/bike.jpg">
+          <span class="ring"></span>
+          <img class="thumb" src="images/bike.jpg" alt="City Bike">
+          <figcaption class="meta"><span class="title">City Bike</span><span class="num">002</span></figcaption>
+        </figure>
+
+        <figure class="card" data-title="Poster — Campus Concert" data-year="2025" data-medium="Digital poster" data-size="A3" data-desc="Bold type with textured background; designed for social + print." data-src="images/poster-concert.jpg">
+          <span class="ring"></span>
+          <img class="thumb" src="images/poster-concert.jpg" alt="Campus Concert Poster">
+          <figcaption class="meta"><span class="title">Concert Poster</span><span class="num">003</span></figcaption>
+        </figure>
+
+        <!-- add as many as you like ... -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="sheet">
+      <button class="close" id="close" aria-label="Close">×</button>
+      <img id="full" alt="">
+      <div class="info">
+        <h2 id="m-title">Title</h2>
+        <div class="small" id="m-meta"></div>
+        <p id="m-desc"></p>
+      </div>
+      <div class="nav">
+        <button class="prev" id="prev" aria-label="Previous">‹</button>
+        <button class="next" id="next" aria-label="Next">›</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Collect cards
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const modal = document.getElementById('modal');
+  const full = document.getElementById('full');
+  const mTitle = document.getElementById('m-title');
+  const mMeta  = document.getElementById('m-meta');
+  const mDesc  = document.getElementById('m-desc');
+  const closeBtn = document.getElementById('close');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let idx = 0;
+
+  function openAt(i){
+    idx = i;
+    const c = cards[idx];
+    full.src = c.dataset.src;
+    full.alt = c.dataset.title || '';
+    mTitle.textContent = c.dataset.title || 'Untitled';
+    mMeta.textContent  = [c.dataset.year, c.dataset.medium, c.dataset.size].filter(Boolean).join(' • ');
+    mDesc.textContent  = c.dataset.desc || '';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+  function close(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+  function next(){ openAt((idx+1) % cards.length) }
+  function prev(){ openAt((idx-1+cards.length) % cards.length) }
+
+  cards.forEach((c,i)=> c.addEventListener('click', ()=> openAt(i)));
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', (e)=> { if(e.target === modal) close(); });
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  window.addEventListener('keydown', (e)=>{
+    if(!modal.classList.contains('open')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='ArrowRight') next();
+    if(e.key==='ArrowLeft') prev();
+  });
+</script>
+</body>
+</html>
