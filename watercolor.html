@@ -1,206 +1,183 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Contact • Casa de Pascal–ish</title>
-
-<!-- Fonts: clean sans + elegant serif + handwritten -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
-
+<title>Watercolor Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#e9e3dd;         /* room backdrop tint */
-    --paper:#fffdf8;      /* postcard paper */
-    --ink:#2b2116;        /* text color */
-    --shadow: 0 20px 60px rgba(0,0,0,.25);
-    --accent:#1b1b1b;
+    --bg:#efe9e4; --wall:#d9d4ce; --wood:#b88854; --ink:#2b2116; --paper:#fffdf8;
   }
   *{box-sizing:border-box}
   body{
-    margin:0; min-height:100svh; color:var(--ink); background:var(--bg);
+    margin:0; background:var(--bg); color:var(--ink);
     font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    display:grid; place-items:center;
-    /* background photo (replace URL) */
-    background-image: url('https://images.unsplash.com/photo-1505691723518-36a5ac3b2d95?q=80&w=2400&auto=format&fit=crop');
-    background-size:cover; background-position:center;
   }
 
-  /* Top nav */
-  .nav{
-    position:fixed; inset:20px auto auto 20px;
-    display:flex; gap:12px; align-items:center;
-    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-    background:rgba(255,255,255,.45); border-radius:999px; padding:10px 14px;
-    border:1px solid rgba(0,0,0,.08);
-  }
-  .nav a{ text-decoration:none; color:#111; font-weight:600; }
-  .nav .dot{width:6px;height:6px;border-radius:50%;background:#111;opacity:.18}
-
-  /* Postcard */
-  .postcard{
-    width:min(1000px,92vw);
-    background:var(--paper);
-    border-radius:10px;
-    box-shadow:var(--shadow);
+  /* grid a bit tighter like the ref */
+  .grid{
     display:grid;
-    grid-template-columns: 1.05fr 0 1fr; /* left | perf | right */
-    gap:24px;
-    padding:28px;
-    transform:rotate(-1deg);
-  }
-  /* Perforation */
-  .perf{
-    width:0; position:relative;
-  }
-  .perf:after{
-    content:"";
-    position:absolute; inset:0;
-    border-right:2px dashed rgba(0,0,0,.25);
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap:18px;
+    padding:24px;
   }
 
-  /* Left side (title + photo) */
-  .left{
-    display:grid; gap:18px; align-content:start;
+  /* Polaroid-style card (flat) */
+  .card{
+    position:relative;
+    cursor:pointer;
+    background:#fff;
+    border-radius:6px;
+    box-shadow:0 14px 18px -10px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.12);
+    transition:transform .15s, box-shadow .15s;
+    padding:0;
   }
-  .brand{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    border-bottom:1px solid rgba(0,0,0,.15);
-    padding-bottom:10px;
-  }
-  .brand h1{
-    font-family:"Playfair Display", serif; font-size:clamp(26px,4vw,40px);
-    letter-spacing:.02em; margin:0;
-  }
-  .brand small{opacity:.7}
+  .card:hover{ transform:translateY(-2px); box-shadow:0 22px 28px -14px rgba(0,0,0,.45), 0 4px 10px rgba(0,0,0,.18) }
+
+  /* photo with polaroid margins (bigger bottom) */
   .thumb{
-    position:relative; border:2px solid #1112; border-radius:8px; overflow:hidden;
-    aspect-ratio: 4/3; background:#ddd;
-  }
-  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-  .legend{
-    position:absolute; inset:auto 10px 10px auto;
-    background:#fff; padding:6px 10px; border-radius:6px; font-size:12px;
-    border:1px solid rgba(0,0,0,.12);
-  }
-  .notes{
-    font-size:14px; line-height:1.5; opacity:.9;
+    display:block;
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    margin:10px 10px 42px;    /* bottom margin = label area */
+    border-radius:2px;
+    background:#ddd;
   }
 
-  /* Right side (form + stamps) */
-  .right{position:relative}
-  .stamps{
-    position:absolute; top:0; right:0; display:flex; gap:8px;
-    transform:rotate(2deg);
+  /* caption sits in the big bottom margin */
+  .meta{
+    position:absolute;
+    left:12px; right:12px; bottom:10px;
+    display:flex; justify-content:space-between; align-items:center; gap:8px;
+    font-size:.86rem; color:#333;
   }
-  .stamp{
-    width:72px; height:88px; border-radius:6px;
-    background:
-      radial-gradient(circle at 30% 30%, #ff86a5, #8e59ff);
-    border:2px solid #fff; outline:1px dashed rgba(0,0,0,.25);
-    box-shadow:0 6px 12px rgba(0,0,0,.2);
+  .num{ font-family:"Playfair Display", serif; font-weight:700; font-size:.95rem; letter-spacing:.02em }
+  .title{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+
+  /* flat red tape strip at top center */
+  .tape{
+    position:absolute;
+    top:-10px; left:50%; transform:translateX(-50%);
+    width:54%; height:14px;
+    background:#ef3b2d;
+    border-radius:2px;
+    box-shadow:0 2px 4px rgba(0,0,0,.18);
+    pointer-events:none;
   }
 
-  form{ margin-top:96px; display:grid; gap:14px }
-  label{
-    font-size:12px; text-transform:uppercase; letter-spacing:.08em; opacity:.7;
+  /* modal (unchanged) */
+  .modal{ position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; align-items:center; justify-content:center; padding:24px; z-index:50 }
+  .modal.open{ display:flex }
+  .sheet{
+    width:min(980px, 95vw); background:#fff; color:#222; border-radius:18px; overflow:hidden;
+    box-shadow:0 40px 80px rgba(0,0,0,.5);
+    display:grid; grid-template-columns:1.2fr 1fr;
   }
-  .line{
-    display:grid; gap:6px;
+  .sheet img{ width:100%; height:100%; object-fit:contain; background:#f5f5f5 }
+  .info{ padding:20px 22px 22px; overflow:auto; }
+  .info h2{ margin:.2rem 0 .6rem; font:700 1.4rem/1.2 "Playfair Display", serif }
+  .info .small{ color:#666; font-size:.9rem; margin-bottom:.8rem }
+  .info p{ margin:.6rem 0 0; line-height:1.5; }
+  .close{
+    position:absolute; top:14px; right:16px; background:#000; color:#fff; border:none; border-radius:999px; width:36px; height:36px; cursor:pointer;
+    font-size:20px; display:grid; place-items:center;
   }
-  .ink{
-    width:100%; padding:10px 12px; font-size:18px;
-    font-family:"Caveat", cursive;
-    border:none; border-bottom:2px solid rgba(0,0,0,.22);
-    background:transparent; outline:none;
+  .nav{ position:absolute; inset:0; pointer-events:none }
+  .nav button{
+    pointer-events:auto; position:absolute; top:50%; transform:translateY(-50%);
+    width:48px; height:48px; border:none; border-radius:999px; background:#000; color:#fff; font-size:22px; cursor:pointer; opacity:.85;
   }
-  textarea.ink{ min-height:120px; resize:vertical; }
-
-  .row{ display:grid; grid-template-columns:1fr 1fr; gap:14px }
-  .send{
-    justify-self:end; margin-top:8px;
-    background:#111; color:#fff; border:none; padding:10px 16px;
-    border-radius:999px; font-weight:600; cursor:pointer;
-  }
-  .send:hover{ filter:brightness(.9) }
-
-  /* Small screen tweaks */
-  @media (max-width:820px){
-    .postcard{
-      grid-template-columns:1fr; gap:18px; padding:22px; transform:none;
-    }
-    .perf{display:none}
-    .stamps{transform:none}
-    form{ margin-top:84px }
-  }
+  .nav .prev{ left:12px } .nav .next{ right:12px }
+  @media (max-width: 880px){ .sheet{ grid-template-columns:1fr } }
 </style>
 </head>
 <body>
+  <div class="grid" id="grid">
+    <!-- CARD TEMPLATE: duplicate and replace src/title/fields -->
+    <figure class="card" data-title="Orchid's for Aunt" data-year="Aug 2025" 
+      data-medium="Watercolor on cold press" data-size="5 x 7 in"
+      data-desc="Quick orchid study requested by my aunt!" data-src="orchid.jpg">
+      <span class="tape"></span>
+      <img class="thumb" src="orchid.jpg" alt="Orchid">
+      <figcaption class="meta"><span class="title">Orchid's for Aunt</span><span class="num">001</span></figcaption>
+    </figure>
 
-  <!-- simple nav; change hrefs -->
-  <nav class="nav">
-    <a href="/index.html">Home</a><span class="dot"></span>
-    <a href="/gallery.html">Work</a><span class="dot"></span>
-    <a href="/contact.html" aria-current="page">Contact</a>
-  </nav>
+    <figure class="card" data-title="City Bike" data-year="2023" data-medium="Ink & wash" data-size="6 x 8 in"
+      data-desc="Quick linework with limited palette." data-src="images/bike.jpg">
+      <span class="tape"></span>
+      <img class="thumb" src="images/bike.jpg" alt="City Bike">
+      <figcaption class="meta"><span class="title">City Bike</span><span class="num">002</span></figcaption>
+    </figure>
 
-  <main class="postcard" role="main" aria-label="Contact postcard">
-    <!-- LEFT -->
-    <section class="left">
-      <div class="brand">
-        <h1>CASA DE PASCAL</h1>
-        <small>Architectural Studio &amp; Interior Design · Est. 2019</small>
+    <figure class="card" data-title="Poster — Campus Concert" data-year="2025" data-medium="Digital poster" data-size="A3"
+      data-desc="Bold type with textured background; designed for social + print." data-src="images/poster-concert.jpg">
+      <span class="tape"></span>
+      <img class="thumb" src="images/poster-concert.jpg" alt="Campus Concert Poster">
+      <figcaption class="meta"><span class="title">Concert Poster</span><span class="num">003</span></figcaption>
+    </figure>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="sheet">
+      <button class="close" id="close" aria-label="Close">×</button>
+      <img id="full" alt="">
+      <div class="info">
+        <h2 id="m-title">Title</h2>
+        <div class="small" id="m-meta"></div>
+        <p id="m-desc"></p>
       </div>
-
-      <figure class="thumb">
-        <!-- Replace with your project image -->
-        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1600&auto=format&fit=crop" alt="Studio exterior" />
-        <figcaption class="legend">Project: La Casa Blanca</figcaption>
-      </figure>
-
-      <p class="notes">
-        We’d love to hear about your project. Send a note on the right or email
-        <strong>hello@casadepascal.com</strong>. Our office is open 9–6, Mon–Fri.
-      </p>
-    </section>
-
-    <!-- PERFORATION -->
-    <div class="perf" aria-hidden="true"></div>
-
-    <!-- RIGHT -->
-    <section class="right">
-      <div class="stamps" aria-hidden="true">
-        <div class="stamp"></div>
-        <div class="stamp" style="transform:translateY(6px) rotate(-6deg)"></div>
+      <div class="nav">
+        <button class="prev" id="prev" aria-label="Previous">‹</button>
+        <button class="next" id="next" aria-label="Next">›</button>
       </div>
+    </div>
+  </div>
 
-      <!-- FORM: replace action with your form endpoint (Formspree, etc.) -->
-      <form action="https://formspree.io/f/your-id" method="POST">
-        <div class="row">
-          <div class="line">
-            <label for="name">Name</label>
-            <input class="ink" id="name" name="name" placeholder="Laura Kauls D." required>
-          </div>
-          <div class="line">
-            <label for="email">Email</label>
-            <input class="ink" id="email" type="email" name="email" placeholder="laura@example.com" required>
-          </div>
-        </div>
+<script>
+  // Collect cards
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const modal = document.getElementById('modal');
+  const full = document.getElementById('full');
+  const mTitle = document.getElementById('m-title');
+  const mMeta  = document.getElementById('m-meta');
+  const mDesc  = document.getElementById('m-desc');
+  const closeBtn = document.getElementById('close');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let idx = 0;
 
-        <div class="line">
-          <label for="address">Address (optional)</label>
-          <input class="ink" id="address" name="address" placeholder="221B Baker Street, London NW1">
-        </div>
+  function openAt(i){
+    idx = i;
+    const c = cards[idx];
+    full.src = c.dataset.src;
+    full.alt = c.dataset.title || '';
+    mTitle.textContent = c.dataset.title || 'Untitled';
+    mMeta.textContent  = [c.dataset.year, c.dataset.medium, c.dataset.size].filter(Boolean).join(' • ');
+    mDesc.textContent  = c.dataset.desc || '';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+  function close(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+  function next(){ openAt((idx+1) % cards.length) }
+  function prev(){ openAt((idx-1+cards.length) % cards.length) }
 
-        <div class="line">
-          <label for="message">Message</label>
-          <textarea class="ink" id="message" name="message" placeholder="Tell us about your project…"></textarea>
-        </div>
-
-        <button class="send" type="submit">Send Message</button>
-      </form>
-    </section>
-  </main>
-
+  cards.forEach((c,i)=> c.addEventListener('click', ()=> openAt(i)));
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', (e)=> { if(e.target === modal) close(); });
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  window.addEventListener('keydown', (e)=>{
+    if(!modal.classList.contains('open')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='ArrowRight') next();
+    if(e.key==='ArrowLeft') prev();
+  });
+</script>
 </body>
 </html>
