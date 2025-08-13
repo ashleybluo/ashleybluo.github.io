@@ -1,145 +1,166 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About — Your Name</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Experience</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2d2a26;
+    --paper:#f3efe9;
+    --olive:#626a54;
+    --cream:#faf7f2;
+    --muted:#9a9388;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height:1.6;
+  }
+  .nav{
+    position:sticky; top:0; z-index:10; display:flex; gap:18px; align-items:center;
+    padding:14px 22px; background:#fff; border-bottom:1px solid #e9e3db;
+  }
+  .nav a{ text-decoration:none; color:var(--ink); opacity:.85; font-size:.95rem }
+  .nav a:hover{opacity:1}
 
-  <style>
-    :root{
-      /* Palette — tweak these to your taste */
-      --ink:#2d2a26;
-      --paper:#f3efe9;
-      --olive:#626a54;
-      --sage:#6f7262;
-      --tan:#c2ae9b;
-      --cream:#faf7f2;
-      --muted:#b6b0a6;
-      --card:#ffffff;
-    }
+  /* HERO uses a gradient so it always renders */
+  .hero{
+    height:48vh; min-height:320px; display:grid; place-items:center; text-align:left;
+    background:
+      radial-gradient(1200px 500px at 70% 20%, rgba(255,255,255,.15), transparent 60%),
+      linear-gradient(180deg, rgba(30,30,30,.35), rgba(30,30,30,.55)),
+      linear-gradient(120deg,#6b6f5b,#43463c);
+    color:#fff; padding:32px;
+  }
+  .hero-inner{ width:min(1100px,92%) }
+  .kicker{ letter-spacing:.14em; text-transform:uppercase; font-size:.75rem; opacity:.9 }
+  h1{ margin:.2rem 0 0; font-size:clamp(44px,8vw,110px); line-height:.92; font-weight:700 }
+  .sub{ max-width:660px; margin-top:12px; opacity:.95 }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      color:var(--ink);
-      background:var(--paper);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      line-height:1.6;
-    }
+  .section{ width:min(1100px,92%); margin:48px auto }
+  .panel{
+    background:var(--cream); border:1px solid #ebe5de; border-radius:18px; padding:32px;
+    box-shadow:0 10px 30px rgba(0,0,0,.04);
+  }
+  .panel.dark{ background:var(--olive); color:#f0ede8; border-color:#5c6450 }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; color:var(--muted) }
+  .panel.dark .eyebrow{ color:#e6e2d8 }
+  h2{ margin:.2rem 0 1rem; font-size:clamp(26px,3.2vw,40px) }
 
-    /* --- Simple top nav --- */
-    .nav{
-      position:sticky; top:0; z-index:10;
-      display:flex; gap:18px; align-items:center;
-      padding:14px 22px;
-      background:rgba(248,246,242,.7);
-      backdrop-filter: blur(6px);
-      border-bottom:1px solid #e9e3db;
-    }
-    .nav a{
-      text-decoration:none; color:var(--ink); font-size:.95rem;
-      opacity:.8
-    }
-    .nav a:hover{opacity:1}
+  /* Experience cards */
+  .experience-grid{
+    display:grid; gap:18px; grid-template-columns:repeat(12,1fr); margin-top:8px;
+  }
+  .experience-card{
+    grid-column:span 6; background:var(--card); border:1px solid #ece7df; border-radius:16px;
+    padding:20px; box-shadow:0 8px 22px rgba(0,0,0,.035);
+  }
+  .experience-card header{ display:flex; justify-content:space-between; gap:10px; margin-bottom:6px }
+  .role{ font-weight:700 }
+  .company{ color:#5a574f }
+  .dates{ font-size:.9rem; opacity:.7; white-space:nowrap }
+  .xp-bullets{ margin:8px 0 0 18px; padding:0 }
+  .xp-bullets li{ margin:.25rem 0 }
+  @media (max-width:900px){ .experience-card{ grid-column:span 12 } }
 
-    /* --- Hero --- */
-    .hero{
-      position:relative;
-      height:50vh; min-height:360px; max-height:720px;
-      background:url('https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;
-      display:grid; place-items:center;
-      overflow:hidden;
-    }
-    .hero::after{
-      content:""; position:absolute; inset:0;
-      background:linear-gradient(to bottom, rgba(20,20,20,.25), rgba(20,20,20,.45));
-    }
-    .hero-inner{
-      position:relative; z-index:1; width:min(1100px,92%); margin:auto;
-    }
-    .hero-kicker{
-      color:#f2e9e0; letter-spacing:.14em; text-transform:uppercase;
-      font-size:.75rem; opacity:.9; margin-bottom:6px;
-    }
-    .hero h1{
-      margin:0;
-      font-family:"Playfair Display",serif;
-      font-weight:600;
-      font-size:clamp(42px, 8vw, 120px);
-      line-height:.92;
-      color:#ffece0;
-    }
-    .hero .sub{
-      margin-top:14px; max-width:560px; color:#f7f3ee; opacity:.95;
-    }
+  /* CTA — gradient background so it always shows */
+  .cta{
+    height:38vh; min-height:260px; display:grid; place-items:center; text-align:center; color:#fff;
+    background:
+      radial-gradient(700px 300px at 30% 30%, rgba(255,255,255,.12), transparent 60%),
+      linear-gradient(160deg,#6a5f52,#3b3732);
+    border-radius:18px; margin-bottom:64px;
+  }
+  .btn{
+    display:inline-block; margin-top:8px; padding:12px 18px; border-radius:999px;
+    border:1px solid #fff; color:#fff; text-decoration:none; font-weight:600; background:transparent;
+  }
+  .center{ text-align:center }
+  .muted{ color:#7b756b }
+</style>
+</head>
+<body>
 
-    /* --- Sections --- */
-    .section{
-      width:min(1100px,92%); margin:56px auto; background:transparent;
-    }
-    .panel{
-      background:var(--cream);
-      border:1px solid #ebe5de;
-      border-radius:18px;
-      padding:36px;
-      box-shadow:0 10px 30px rgba(0,0,0,.04);
-    }
-    .panel.dark{
-      background:var(--olive);
-      color:#f0ede8;
-      border-color:#5c6450;
-    }
+  <nav class="nav">
+    <a href="#">Home</a><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a>
+  </nav>
 
-    /* --- Typography --- */
-    h2,h3{
-      font-family:"Playfair Display",serif;
-      margin:0 0 .6rem;
-    }
-    h2{ font-size:clamp(26px,3.2vw,40px); }
-    h3{ font-size:clamp(22px,2.4vw,28px); }
-    .eyebrow{
-      text-transform:uppercase; letter-spacing:.18em;
-      font-size:.72rem; color:var(--muted);
-    }
-    .dark .eyebrow{ color:#d9d5cb; }
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">About</div>
+      <h1>Meet Your Name</h1>
+      <p class="sub">Quick intro about who you are. This version uses gradients only so you’ll see everything even if images are blocked. You can swap in photos later.</p>
+    </div>
+  </header>
 
-    /* --- Gallery strip --- */
-    .gallery{
-      display:grid; gap:14px;
-      grid-template-columns:repeat(12,1fr);
-    }
-    .gallery .tall{ grid-column: span 4; aspect-ratio:3/4; }
-    .gallery .wide{ grid-column: span 8; aspect-ratio:16/9; }
-    .gallery img{
-      width:100%; height:100%; object-fit:cover; border-radius:14px;
-      filter:grayscale(14%) brightness(.9) contrast(.96) saturate(.92);
-    }
+  <section class="section panel">
+    <div class="eyebrow">Introduction</div>
+    <h2>Captivating Title</h2>
+    <p>Short paragraph about your interests and approach. Keep it specific and warm.</p>
+  </section>
 
-    /* --- Two-column text --- */
-    .two-col{
-      display:grid; gap:28px; grid-template-columns:1.2fr .8fr;
-    }
-    @media (max-width:860px){
-      .two-col{grid-template-columns:1fr}
-    }
+  <section class="section panel dark">
+    <div class="center">
+      <div class="eyebrow">Hello</div>
+      <h2>Hi, I’m Your Name</h2>
+      <p style="max-width:760px;margin:8px auto 0;">A longer paragraph about your values and the through-line across your work. Mention domains you’ve worked in and what you want next.</p>
+    </div>
+  </section>
 
-    /* --- Experience cards --- */
-    .experience-grid{
-      display:grid; gap:18px;
-      grid-template-columns:repeat(12,1fr);
-      margin-top:18px;
-    }
-    .experience-card{
-      grid-column:span 6;
-      background:var(--card);
-      border:1px solid #ece7df;
-      border-radius:16px;
-      padding:22px;
-      box-shadow:0 8px 22px rgba(0,0,0,.035);
-    }
-    .experience-card header{
-      display:flex; justify-content:space-between; align-items
+  <section class="section panel">
+    <div class="eyebrow">Experience</div>
+    <h2>Selected Work & Roles</h2>
+    <p class="muted">Edit these cards with your jobs, internships, projects, or leadership roles. Duplicate a card to add more.</p>
+
+    <div class="experience-grid">
+      <article class="experience-card">
+        <header>
+          <div>
+            <div class="role">Role Title</div>
+            <div class="company">Company • City, ST</div>
+          </div>
+          <div class="dates">2024 – Present</div>
+        </header>
+        <ul class="xp-bullets">
+          <li>Impact bullet with metric (e.g., “Increased X by 18%”).</li>
+          <li>What you built/led/optimized.</li>
+          <li>Tools/skills you used.</li>
+        </ul>
+      </article>
+
+      <article class="experience-card">
+        <header>
+          <div>
+            <div class="role">Another Role</div>
+            <div class="company">Organization • Location</div>
+          </div>
+          <div class="dates">2023 – 2024</div>
+        </header>
+        <ul class="xp-bullets">
+          <li>Outcome-focused bullet.</li>
+          <li>Collaboration or leadership highlight.</li>
+          <li>Technical detail or context.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta">
+      <div>
+        <div class="kicker" style="opacity:.9">Collab</div>
+        <h2>We’re a Perfect Match If You…</h2>
+        <p>Value thoughtful craft, clear metrics, and kind teams.</p>
+        <a class="btn" href="#contact">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section center muted">© <span id="y"></span> Your Name — Portfolio</footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
