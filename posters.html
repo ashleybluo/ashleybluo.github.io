@@ -3,32 +3,30 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Clickable Poster Wall</title>
-
+<title>Poster Wall (Aligned + Clickable)</title>
 <style>
   :root{
-    --wall:#efeee9;      /* wall color */
-    --shadow:0 10px 25px rgba(0,0,0,.08);
+    --wall:#efeee9;
     --ring:#ddd7cd;
+    --shadow:0 10px 24px rgba(0,0,0,.08);
+    --gap:10px;
   }
   *{box-sizing:border-box}
-  body{margin:0; background:var(--wall); font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
+  body{margin:0;background:var(--wall);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
 
-  /* --- Canvas + title (optional) --- */
-  .wrap{width:min(1100px,92%); margin:36px auto 70px}
-  h1{font-size:1rem; letter-spacing:.14em; text-transform:uppercase; color:#6b675f; text-align:center; margin:0 0 18px}
+  .wrap{width:min(1100px,92%);margin:36px auto 70px}
+  h1{font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:#6b675f;text-align:center;margin:0 0 18px}
 
-  /* --- Poster wall --- */
+  /* --- GRID WALL --- */
   .wall{
     position:relative;
     display:grid;
-    grid-template-columns:repeat(24, 1fr); /* fine-grained grid to 'tetris' pieces */
-    grid-auto-rows:14px;                   /* base row height */
-    gap:10px;
+    grid-template-columns:repeat(24,1fr);
+    grid-auto-rows:14px;            /* 1 row unit = 14px → consistent heights */
+    gap:var(--gap);
   }
 
-  /* each poster is an <a> with a child <img> */
-  .poster{
+  a.poster{
     display:block;
     border:1px solid var(--ring);
     border-radius:8px;
@@ -36,178 +34,105 @@
     box-shadow:var(--shadow);
     overflow:hidden;
     transition:transform .12s ease, box-shadow .12s ease;
+    height:100%;
   }
-  .poster:focus-visible{outline:2px solid #6b675f; outline-offset:2px}
-  .poster:hover{transform:translateY(-2px)}
-  .poster > img{
-    width:100%; height:100%; object-fit:cover; display:block;
+  a.poster:hover{transform:translateY(-2px)}
+  /* critical: force images to fill the grid cell even if a site-wide reset says height:auto */
+  .wall a.poster > img{
+    display:block;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover;
     filter:grayscale(6%) brightness(.98) contrast(.98) saturate(.94);
   }
 
-  /* --- Lightbox --- */
+  /* --- EXACT DESKTOP PLACEMENT --- */
+  @media (min-width:781px){
+    .p1  {grid-column: 1 / span 9;  grid-row:  1 / span 18;} /* Ponyo big */
+    .p2  {grid-column:10 / span 6;  grid-row:  1 / span 10;} /* LAMP */
+    .p3  {grid-column:16 / span 6;  grid-row:  1 / span  8;} /* birds */
+    .p4  {grid-column:22 / span 3;  grid-row:  1 / span  4;} /* tiny blue/yellow */
+    .p5  {grid-column:22 / span 3;  grid-row:  5 / span  6;} /* Miffy right */
+    .p6  {grid-column:10 / span 4;  grid-row: 11 / span  5;} /* small circle */
+    .p7  {grid-column:14 / span 8;  grid-row:  9 / span 10;} /* done did + girl */
+    .p8  {grid-column:10 / span 6;  grid-row: 16 / span 12;} /* calendar */
+    .p9  {grid-column: 1 / span 5;  grid-row: 19 / span  8;} /* 777 */
+    .p10 {grid-column: 6 / span 5;  grid-row: 19 / span  8;} /* MD notice */
+    .p11 {grid-column: 1 / span 10; grid-row: 28 / span  6;} /* One Foot banner */
+    .p12 {grid-column:19 / span 6;  grid-row: 20 / span  9;} /* yellow miffy trio */
+    .p13 {grid-column:22 / span 3;  grid-row: 16 / span  4;} /* tiny sketch */
+    .p14 {grid-column:19 / span 6;  grid-row: 30 / span 12;} /* tall boat */
+    .p15 {grid-column:22 / span 3;  grid-row: 12 / span  4;} /* small girl */
+  }
+
+  /* --- MOBILE: neat stacked grid (no absolute placement) --- */
+  @media (max-width:780px){
+    .wall{
+      grid-template-columns:repeat(6,1fr);
+      grid-auto-rows:auto;
+    }
+    a.poster{aspect-ratio:3/4} /* consistent tiles on phones */
+    .wide{aspect-ratio:3/2}
+    .banner{aspect-ratio:5/2}
+  }
+
+  /* --- LIGHTBOX --- */
   .lightbox{
     position:fixed; inset:0; display:none; place-items:center; z-index:50;
-    background:rgba(20,18,16,.7);
-    padding:22px;
+    background:rgba(20,18,16,.7); padding:22px;
   }
   .lightbox.open{display:grid}
-  .lightbox figure{
-    margin:0; max-width:min(92vw, 1100px); max-height:86vh;
-    display:grid; gap:8px; grid-template-rows:auto min-content;
-  }
-  .lightbox img{
-    width:100%; height:100%; object-fit:contain; background:#fff; border-radius:10px;
-    box-shadow:0 20px 50px rgba(0,0,0,.35);
-  }
-  .lightbox figcaption{
-    color:#eee6dc; text-align:center; font-size:.95rem;
-  }
-  .lb-close{
-    position:absolute; top:14px; right:14px; border:0; background:rgba(255,255,255,.2);
-    color:#fff; padding:8px 11px; border-radius:999px; cursor:pointer; font-size:14px;
-    backdrop-filter: blur(6px);
-  }
-
-  /* --- Responsive (stack on small screens) --- */
-  @media (max-width:780px){
-    .wall{grid-template-columns:repeat(6, 1fr); grid-auto-rows: 8px}
-  }
-
-  /* --- Placement classes (approximate your layout) --- */
-  /* helper: col span (1col = 1 of 24), row span (1row = 14px height unit) */
-  .c1 {grid-column:span 7}  .c2 {grid-column:span 5}  .c3 {grid-column:span 6}
-  .c4 {grid-column:span 4}  .c5 {grid-column:span 3}  .c6 {grid-column:span 8}
-  .r12{grid-row:span 12} .r10{grid-row:span 10} .r9{grid-row:span 9}
-  .r8 {grid-row:span 8}  .r7 {grid-row:span 7}  .r6{grid-row:span 6}
-  .r5 {grid-row:span 5}  .r4 {grid-row:span 4}  .r16{grid-row:span 16}
-
-  /* EXACT positions to mimic the photo on desktop (we place by start line) */
-  @media (min-width:781px){
-    .p1 {grid-column:1 / span 9;  grid-row:1 / span 16;}     /* big Ponyo poster */
-    .p2 {grid-column:10 / span 6; grid-row:1 / span 9;}      /* LAMP */
-    .p3 {grid-column:16 / span 6; grid-row:1 / span 7;}      /* birds/Three of Songs */
-    .p4 {grid-column:22 / span 3; grid-row:1 / span 4;}      /* small square (blue/yellow) */
-    .p5 {grid-column:22 / span 3; grid-row:5 / span 6;}      /* BrunaTimes/Miffy */
-    .p6 {grid-column:10 / span 4; grid-row:10 / span 5;}     /* tiny circle */
-    .p7 {grid-column:14 / span 8; grid-row:8 / span 10;}     /* done did + girl */
-    .p8 {grid-column:10 / span 6; grid-row:15 / span 12;}    /* 2024 calendar */
-    .p9 {grid-column:1 / span 5;  grid-row:18 / span 8;}     /* 777 */
-    .p10{grid-column:6 / span 5;  grid-row:18 / span 8;}     /* MD notice */
-    .p11{grid-column:1 / span 10; grid-row:27 / span 6;}     /* One foot in the groove */
-    .p12{grid-column:19 / span 6; grid-row:19 / span 9;}     /* yellow miffy trio */
-    .p13{grid-column:22 / span 3; grid-row:15 / span 4;}     /* tiny sketch */
-    .p14{grid-column:19 / span 6; grid-row:29 / span 12;}    /* tall right poster (boat) */
-    .p15{grid-column:22 / span 3; grid-row:11 / span 4;}     /* small square (girl) */
-  }
+  .lightbox figure{margin:0;max-width:min(92vw,1100px);max-height:86vh;display:grid;gap:8px;grid-template-rows:auto min-content}
+  .lightbox img{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  .lightbox figcaption{color:#eee6dc;text-align:center;font-size:.95rem}
+  .lb-close{position:absolute;top:14px;right:14px;border:0;background:rgba(255,255,255,.2);color:#fff;padding:8px 11px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px)}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Poster Wall (click any poster)</h1>
+    <h1>Poster Wall — Click any poster</h1>
 
     <div class="wall" id="wall">
-      <!-- Replace each href/src/alt with your image + caption.
-           The href is NOT used for navigation; JS opens the lightbox. -->
-
-      <a class="poster p1"  href="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1200&auto=format&fit=crop" data-caption="Ponyo on the Cliff">
-        <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=600&auto=format&fit=crop" alt="Ponyo poster">
+      <!-- Replace src/href with your files. Desktop uses precise placement (.p1…p15). -->
+      <a class="poster p1"  href="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1400&auto=format&fit=crop" data-caption="Ponyo">
+        <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=800&auto=format&fit=crop" alt="Poster 1">
       </a>
 
-      <a class="poster p2"  href="https://images.unsplash.com/photo-1520975922215-230cd0599d38?q=80&w=1000&auto=format&fit=crop" data-caption="LAMP">
-        <img src="https://images.unsplash.com/photo-1520975922215-230cd0599d38?q=80&w=600&auto=format&fit=crop" alt="Lamp poster">
+      <a class="poster p2"  href="https://images.unsplash.com/photo-1520975922215-230cd0599d38?q=80&w=1400&auto=format&fit=crop" data-caption="Lamp">
+        <img src="https://images.unsplash.com/photo-1520975922215-230cd0599d38?q=80&w=800&auto=format&fit=crop" alt="Poster 2">
       </a>
 
-      <a class="poster p3"  href="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" data-caption="Three of Songs">
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600&auto=format&fit=crop" alt="Seaside painting">
+      <a class="poster p3"  href="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" data-caption="Seaside">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop" alt="Poster 3">
       </a>
 
-      <a class="poster p4"  href="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1000&auto=format&fit=crop" data-caption="Blue & Yellow Mini">
-        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=400&auto=format&fit=crop" alt="Blue and yellow square">
+      <a class="poster p4"  href="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1000&auto=format&fit=crop" data-caption="Mini Blue">
+        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=400&auto=format&fit=crop" alt="Poster 4">
       </a>
 
-      <a class="poster p5"  href="https://images.unsplash.com/photo-1618897996318-5f3b3a30a44b?q=80&w=1000&auto=format&fit=crop" data-caption="Bruna Times">
-        <img src="https://images.unsplash.com/photo-1618897996318-5f3b3a30a44b?q=80&w=400&auto=format&fit=crop" alt="Miffy poster">
+      <a class="poster p5"  href="https://images.unsplash.com/photo-1618897996318-5f3b3a30a44b?q=80&w=1200&auto=format&fit=crop" data-caption="Miffy">
+        <img src="https://images.unsplash.com/photo-1618897996318-5f3b3a30a44b?q=80&w=500&auto=format&fit=crop" alt="Poster 5">
       </a>
 
-      <a class="poster p6"  href="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000&auto=format&fit=crop" data-caption="Circle mini">
-        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=300&auto=format&fit=crop" alt="Circle mini">
+      <a class="poster p6"  href="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" data-caption="Circle">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=500&auto=format&fit=crop" alt="Poster 6">
       </a>
 
-      <a class="poster p7"  href="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop" data-caption="Done Did">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop" alt="Girl illustration">
+      <a class="poster p7"  href="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1400&auto=format&fit=crop" data-caption="Done Did">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop" alt="Poster 7">
       </a>
 
-      <a class="poster p8"  href="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1200&auto=format&fit=crop" data-caption="2024 Calendar">
-        <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=600&auto=format&fit=crop" alt="Calendar">
+      <a class="poster p8"  href="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1400&auto=format&fit=crop" data-caption="2024 Calendar">
+        <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=800&auto=format&fit=crop" alt="Poster 8">
       </a>
 
       <a class="poster p9"  href="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop" data-caption="777">
-        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=500&auto=format&fit=crop" alt="Poster 777">
+        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=600&auto=format&fit=crop" alt="Poster 9">
       </a>
 
       <a class="poster p10" href="https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop" data-caption="MD Notice">
-        <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=500&auto=format&fit=crop" alt="MD notice">
+        <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=600&auto=format&fit=crop" alt="Poster 10">
       </a>
 
-      <a class="poster p11" href="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1200&auto=format&fit=crop" data-caption="One Foot in the Groove">
-        <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=700&auto=format&fit=crop" alt="Groove poster">
-      </a>
-
-      <a class="poster p12" href="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=1200&auto=format&fit=crop" data-caption="Miffy Trio">
-        <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=500&auto=format&fit=crop" alt="Miffy trio">
-      </a>
-
-      <a class="poster p13" href="https://images.unsplash.com/photo-1520972771113-6c2c1a63a76f?q=80&w=1000&auto=format&fit=crop" data-caption="Tiny sketch">
-        <img src="https://images.unsplash.com/photo-1520972771113-6c2c1a63a76f?q=80&w=300&auto=format&fit=crop" alt="Sketch">
-      </a>
-
-      <a class="poster p14" href="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1400&auto=format&fit=crop" data-caption="Boat & Leaves">
-        <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop" alt="Tall right poster">
-      </a>
-
-      <a class="poster p15" href="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1000&auto=format&fit=crop" data-caption="Small girl">
-        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=400&auto=format&fit=crop" alt="Small girl">
-      </a>
-    </div>
-  </div>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer">
-    <button class="lb-close" aria-label="Close">✕</button>
-    <figure>
-      <img id="lb-img" alt="">
-      <figcaption id="lb-cap"></figcaption>
-    </figure>
-  </div>
-
-<script>
-  // Simple lightbox: click poster => open overlay with the href as image
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lb-img');
-  const lbCap = document.getElementById('lb-cap');
-
-  document.getElementById('wall').addEventListener('click', e=>{
-    const a = e.target.closest('a.poster');
-    if(!a) return;
-    e.preventDefault();
-    lbImg.src = a.getAttribute('href');
-    lbImg.alt = a.querySelector('img')?.alt || '';
-    lbCap.textContent = a.dataset.caption || '';
-    lb.classList.add('open');
-  });
-
-  const close = ()=> lb.classList.remove('open');
-  document.querySelector('.lb-close').addEventListener('click', close);
-  lb.addEventListener('click', e=>{ if(e.target === lb) close(); });
-  window.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
-
-  // Optional: preload big images on hover for snappy opening
-  document.querySelectorAll('.poster').forEach(p=>{
-    p.addEventListener('mouseenter', ()=>{
-      const src = p.getAttribute('href');
-      const img = new Image(); img.src = src;
-    }, {once:true});
-  });
-</script>
-</body>
-</html>
+      <a class="poster p11 banner" href="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1400&auto=format&fit=crop" data-caption="One Foot in the Groove">
+        <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=900&auto=format&fit=cr
