@@ -1,1 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Your Name</title>
 
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Palette — tweak these to your taste */
+      --ink:#2d2a26;
+      --paper:#f3efe9;
+      --olive:#626a54;
+      --sage:#6f7262;
+      --tan:#c2ae9b;
+      --cream:#faf7f2;
+      --muted:#b6b0a6;
+      --card:#ffffff;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:var(--paper);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.6;
+    }
+
+    /* --- Simple top nav --- */
+    .nav{
+      position:sticky; top:0; z-index:10;
+      display:flex; gap:18px; align-items:center;
+      padding:14px 22px;
+      background:rgba(248,246,242,.7);
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid #e9e3db;
+    }
+    .nav a{
+      text-decoration:none; color:var(--ink); font-size:.95rem;
+      opacity:.8
+    }
+    .nav a:hover{opacity:1}
+
+    /* --- Hero --- */
+    .hero{
+      position:relative;
+      height:50vh; min-height:360px; max-height:720px;
+      background:url('https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;
+      display:grid; place-items:center;
+      overflow:hidden;
+    }
+    .hero::after{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(to bottom, rgba(20,20,20,.25), rgba(20,20,20,.45));
+    }
+    .hero-inner{
+      position:relative; z-index:1; width:min(1100px,92%); margin:auto;
+    }
+    .hero-kicker{
+      color:#f2e9e0; letter-spacing:.14em; text-transform:uppercase;
+      font-size:.75rem; opacity:.9; margin-bottom:6px;
+    }
+    .hero h1{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-weight:600;
+      font-size:clamp(42px, 8vw, 120px);
+      line-height:.92;
+      color:#ffece0;
+    }
+    .hero .sub{
+      margin-top:14px; max-width:560px; color:#f7f3ee; opacity:.95;
+    }
+
+    /* --- Sections --- */
+    .section{
+      width:min(1100px,92%); margin:56px auto; background:transparent;
+    }
+    .panel{
+      background:var(--cream);
+      border:1px solid #ebe5de;
+      border-radius:18px;
+      padding:36px;
+      box-shadow:0 10px 30px rgba(0,0,0,.04);
+    }
+    .panel.dark{
+      background:var(--olive);
+      color:#f0ede8;
+      border-color:#5c6450;
+    }
+
+    /* --- Typography --- */
+    h2,h3{
+      font-family:"Playfair Display",serif;
+      margin:0 0 .6rem;
+    }
+    h2{ font-size:clamp(26px,3.2vw,40px); }
+    h3{ font-size:clamp(22px,2.4vw,28px); }
+    .eyebrow{
+      text-transform:uppercase; letter-spacing:.18em;
+      font-size:.72rem; color:var(--muted);
+    }
+    .dark .eyebrow{ color:#d9d5cb; }
+
+    /* --- Gallery strip --- */
+    .gallery{
+      display:grid; gap:14px;
+      grid-template-columns:repeat(12,1fr);
+    }
+    .gallery .tall{ grid-column: span 4; aspect-ratio:3/4; }
+    .gallery .wide{ grid-column: span 8; aspect-ratio:16/9; }
+    .gallery img{
+      width:100%; height:100%; object-fit:cover; border-radius:14px;
+      filter:grayscale(14%) brightness(.9) contrast(.96) saturate(.92);
+    }
+
+    /* --- Two-column text --- */
+    .two-col{
+      display:grid; gap:28px; grid-template-columns:1.2fr .8fr;
+    }
+    @media (max-width:860px){
+      .two-col{grid-template-columns:1fr}
+    }
+
+    /* --- Experience cards --- */
+    .experience-grid{
+      display:grid; gap:18px;
+      grid-template-columns:repeat(12,1fr);
+      margin-top:18px;
+    }
+    .experience-card{
+      grid-column:span 6;
+      background:var(--card);
+      border:1px solid #ece7df;
+      border-radius:16px;
+      padding:22px;
+      box-shadow:0 8px 22px rgba(0,0,0,.035);
+    }
+    .experience-card header{
+      display:flex; justify-content:space-between; align-items
